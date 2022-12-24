@@ -1,4 +1,4 @@
-import { act } from "react-dom/test-utils";
+// import { act } from "react-dom/test-utils";
 import { legacy_createStore as createStore } from "redux";
 
 const counterReducer = (state = { counter: 0 }, action) => {

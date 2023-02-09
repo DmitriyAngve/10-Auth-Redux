@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import classes from "./Counter.module.css";
 
 const Counter = () => {
@@ -29,29 +29,47 @@ const Counter = () => {
   );
 };
 
-class Counter extends Component {
-  incrementHandler() {}
-  decrementHandler() {}
-  toggleCounterHandler() {}
-
-  render() {
-    return (
-      <main className={classes.counter}>
-        <h1>Redux Counter</h1>
-        <div className={classes.value}>{counter}</div>
-        <div>
-          <button onClick={this.incrementHandler}>Increment</button>
-          <button onClick={this.decrementHandler}>Decrement</button>
-        </div>
-        <button onClick={this.toggleCounterHandler}>Toggle Counter</button>
-      </main>
-    );
-  }
-}
+export default Counter;
 
 // Class based component for "Counter"
+// class Counter extends Component {
+//   incrementHandler() {
+//     this.props.increment();
+//   }
+//   decrementHandler() {
+//     this.props.decrement();
+//   }
+//   toggleCounterHandler() {}
 
-export default Counter;
+//   render() {
+//     return (
+//       <main className={classes.counter}>
+//         <h1>Redux Counter</h1>
+//         <div className={classes.value}>{this.props.counter}</div>
+//         <div>
+//           <button onClick={this.incrementHandler.bind(this)}>Increment</button>
+//           <button onClick={this.decrementHandler.bind(this)}>Decrement</button>
+//         </div>
+//         <button onClick={this.toggleCounterHandler}>Toggle Counter</button>
+//       </main>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state) => {
+//   return {
+//     counter: state.counter,
+//   };
+// };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     increment: () => dispatch({ type: "increment" }),
+//     decrement: () => dispatch({ type: "decrement" }),
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 // ~~ USING REDUX DATA IN REACT COMPONENTS ~~
 // Start by outputting the current counter. For this we need to get access to our Redux store and to the data in there
@@ -92,4 +110,16 @@ export default Counter;
 // 1.5 Add "this" keyword to functions reffering to these methods, which are part of this case.
 // STEP 2: HOW WE DO get access to REDUX with class based components?
 // 2.1 In class-based components are not usable hooks. Solve - use "connect" imported from "react-redux".
-// 2.2 In "export default Counter()" add "connect()(Counter)". "Connect" is a so-called higher order Component. In this "connect()(Counter)" we execute the "connect" function it then returns a new function and we execute this returned, this new function as well.
+// 2.2 In "export default Counter()" add "connect()(Counter)". "Connect" is a so-called higher order Component. In this "connect()(Counter)" we execute the "connect" function it then returns a new function and we execute this returned, this new function as well and to this returned function, we pass "Counter".
+// We do this cuz, when we execute this, we also pass something.
+// Connect also wants some arguments. It wants two arguments t be prcise, and both arguments are functions. Let's separate this functions.
+// 2.3 First function is a function that maps REDUX state to props, which will be received in this component then. "const mapsStateToProps = " this funciton receives the REDUX state and then returns an object where keys will be available as props in the receiving component (Counter component), and the values of thoose keys, that is then the logic for drilling into that REDUX state. We use "counter" as key, and value is "state.counter". We pick thee "counter" valkue from the REDUX state, and bind that value to the "counter" prop.
+// 2.3 After this "mapStateToProp" is the first argument we pass to connect: "export default connect(mapStateToProps)(Counter);"
+// 2.4 Second argument "const mapDispatchToProps". Idead is to store "dispatch" functions in props. In the "counter" Component, we have certain props, which we can execute as a function, which will then when executed dispatch an action to the REDUX store. This function receives the "dispatch" func as an argument automatically and also return an object, where the keys are prop names which we can then use in the component.
+// 2.5 Value is then another function "increment: ()=> dispatch({})" and then set up our function and action where the "type: "increment"".
+// 2.6 Also do this for decrement. And add this function like argument into "connect" (just pointers! they will be executed for us by react-redux)
+// When using "connect", react-redux will still set up a subscription and manage a subscribtion for you.
+// 2.7 Now in "incrementHandler()" we can execute "this.props.increment" because we'll have a prop named "increment", cuz of our mappng.
+// 2.8 For "decrement" too.
+// 2.9 Add needed "this.props" in JSX. "this.props.counter"
+// 2.10 Add ".bind(this)" to make sure for working fine. (this) - refers to the class.

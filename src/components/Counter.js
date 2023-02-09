@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import classes from "./Counter.module.css";
+// import { INCREMENT } from "../store";
 
 const Counter = () => {
   const dispatch = useDispatch();
@@ -157,3 +158,9 @@ export default Counter;
 // 3.2 Need to get access to this "toggle". For this use "useSelector": "const show = useSelector((state) => state.showCounter);"
 // 3.3 Add render to div conditionally: "show &&<div className={classes.value}>{counter}</div>}" IF "show" changes - it start's render a component
 // WORKING WITH MULTIPLE STATE PROPERTIES
+
+// HOW TO WORK WITH REDUX STATE CORRECTLY
+// STEP 1:
+// 1.1
+
+// HOW TO WORK WITH REDUX STATE CORRECTLY

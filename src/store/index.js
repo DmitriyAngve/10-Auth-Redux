@@ -1,24 +1,37 @@
 // import { act } from "react-dom/test-utils";
 import { legacy_createStore as createStore } from "redux";
 
-const counterReducer = (state = { counter: 0 }, action) => {
+const initialState = { counter: 0, showCounter: true };
+
+const counterReducer = (state = initialState, action) => {
   if (action.type === "increment") {
     return {
       counter: state.counter + 1,
+      showCounter: state.showCounter,
     };
   }
 
   if (action.type === "increase") {
     return {
       counter: state.counter + action.amount,
+      showCounter: state.showCounter,
     };
   }
 
   if (action.type === "decrement") {
     return {
       counter: state.counter - 1,
+      showCounter: state.showCounter,
     };
   }
+
+  if (action.type === "toggle") {
+    return {
+      showCounter: !state.showCounter,
+      counter: state.counter,
+    };
+  }
+
   return state;
 };
 
@@ -52,3 +65,17 @@ export default store;
 
 // GO TO "Counter.js" --->>>
 // ATTACING PAYLOADS TO ACTIONS
+
+// WORKING WITH MULTIPLE STATE PROPERTIES
+
+// HELLO, I'm FROM COUNTER.js
+// STEP 1:
+// 1.1 We need add some logic for "toggleCounterHandler". We start besides having a counter, which has a value of 0, I wanna have a showCounter field. Add "showCounter: true"
+// 1.2 For more readable I'll extract that and store in a constant: "const initialState = { counter: 0, showCounter: true };" and change "state = initialState".
+// We still need to set th "showCounter" property to returned object in reducer function, cuz we are returning the overall state object and REDUX won't merge your changes with the existing state. It instead takes what you return and replaces the existing state with it.
+// 1.3 "showCounter: state.showCounter," - return the existing showCounter value
+// STEP 2:
+// 2.1 Handle a new action type and check for "toggle" and set  "showCounter: !state.showCounter" and set it to the opossite of what it was before (with exclamaton mark). "counter" itself, we wanna keep the existing state "counter: state.counter"
+
+// GO TO "Counter.js" --->>>
+// WORKING WITH MULTIPLE STATE PROPERTIES

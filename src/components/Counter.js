@@ -4,30 +4,32 @@ import classes from "./Counter.module.css";
 
 const Counter = () => {
   const dispatch = useDispatch();
-
   const counter = useSelector((state) => state.counter);
+  const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
     dispatch({ type: "increment" });
   };
 
   const increaseHandler = () => {
-    dispatch({ type: "increase", amount: 5 });
+    dispatch({ type: "increase", amount: 10 });
   };
 
   const decrementHandler = () => {
     dispatch({ type: "decrement" });
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch({ type: "toggle" });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
-        <button onClick={increaseHandler}>Increase by 5</button>
+        <button onClick={increaseHandler}>Increase by 10</button>
         <button onClick={decrementHandler}>Decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
@@ -145,6 +147,13 @@ export default Counter;
 // WORKING WITH MULTIPLE STATE PROPERTIES
 
 // STEP 1:
-// 1.1 Let's work with "toggleCounterHandler" here we wanna dispatch an action which changes some state in REDUX, which controls whether this counter div is shown or not
+// 1.1 Let's work with "toggleCounterHandler" here we wanna dispatch an action which changes some state in REDUX, which controls whether this counter div "<div className={classes.value}>{counter}</div>" is shown or not.
+// GO TO "store/index.js" --->>> to change our Reducer
 
+// HELLO, I'm FROM store/index.js
+
+// STEP 3:
+// 3.1 Now "dispatch" such an action with a type is toggle
+// 3.2 Need to get access to this "toggle". For this use "useSelector": "const show = useSelector((state) => state.showCounter);"
+// 3.3 Add render to div conditionally: "show &&<div className={classes.value}>{counter}</div>}" IF "show" changes - it start's render a component
 // WORKING WITH MULTIPLE STATE PROPERTIES

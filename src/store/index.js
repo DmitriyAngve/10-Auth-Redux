@@ -8,6 +8,12 @@ const counterReducer = (state = { counter: 0 }, action) => {
     };
   }
 
+  if (action.type === "increase") {
+    return {
+      counter: state.counter + action.amount,
+    };
+  }
+
   if (action.type === "decrement") {
     return {
       counter: state.counter - 1,
@@ -36,3 +42,13 @@ export default store;
 // 2.2 To provide Redux "store" to React app, go into "store/index.js"
 // GO TO "store/index.js" --->>>
 // ~~ CREATE A REDUX STOREFOR REACT ~~
+
+// ATTACING PAYLOADS TO ACTIONS
+// HELLO, I'm FROM COUNTER.js
+// STEP 1:
+// 1.1 Add new condition for reducer with another action.type
+// 1.2 "if (action.type === "increaseby5") { return {   counter: state.counter + 5,};}" - it's HARDCODE. Instead, the action which we "dispatch" and which reaches the Reducer often needs to carry extra data.
+// 1.3 "if (action.type === "increaseby") { return {   counter: state.counter + action.amount,};}"
+
+// GO TO "Counter.js" --->>>
+// ATTACING PAYLOADS TO ACTIONS

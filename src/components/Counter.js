@@ -10,6 +10,11 @@ const Counter = () => {
   const incrementHandler = () => {
     dispatch({ type: "increment" });
   };
+
+  const increaseHandler = () => {
+    dispatch({ type: "increase", amount: 5 });
+  };
+
   const decrementHandler = () => {
     dispatch({ type: "decrement" });
   };
@@ -22,6 +27,7 @@ const Counter = () => {
       <div className={classes.value}>{counter}</div>
       <div>
         <button onClick={incrementHandler}>Increment</button>
+        <button onClick={increaseHandler}>Increase by 5</button>
         <button onClick={decrementHandler}>Decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
@@ -123,3 +129,22 @@ export default Counter;
 // 2.8 For "decrement" too.
 // 2.9 Add needed "this.props" in JSX. "this.props.counter"
 // 2.10 Add ".bind(this)" to make sure for working fine. (this) - refers to the class.
+
+// ATTACING PAYLOADS TO ACTIONS
+// STEP 1:
+// 1.1 For this add new button "Increase by 5".
+// 1.2 Prepare our Reducer function for another action type.
+// GO TO "store/index.js" --->>>
+
+// HELLO, I'm FROM store/index.js
+// STEP 2:
+// 2.1 Add a new function the "increaseHandler" with " dispatch({ type: "increase", amount: 5 });"
+
+// ATTACING PAYLOADS TO ACTIONS
+
+// WORKING WITH MULTIPLE STATE PROPERTIES
+
+// STEP 1:
+// 1.1 Let's work with "toggleCounterHandler" here we wanna dispatch an action which changes some state in REDUX, which controls whether this counter div is shown or not
+
+// WORKING WITH MULTIPLE STATE PROPERTIES

@@ -1,3 +1,4 @@
+import { Component } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./Counter.module.css";
 
@@ -27,6 +28,28 @@ const Counter = () => {
     </main>
   );
 };
+
+class Counter extends Component {
+  incrementHandler() {}
+  decrementHandler() {}
+  toggleCounterHandler() {}
+
+  render() {
+    return (
+      <main className={classes.counter}>
+        <h1>Redux Counter</h1>
+        <div className={classes.value}>{counter}</div>
+        <div>
+          <button onClick={this.incrementHandler}>Increment</button>
+          <button onClick={this.decrementHandler}>Decrement</button>
+        </div>
+        <button onClick={this.toggleCounterHandler}>Toggle Counter</button>
+      </main>
+    );
+  }
+}
+
+// Class based component for "Counter"
 
 export default Counter;
 
@@ -59,3 +82,14 @@ export default Counter;
 // Now we need to wire up those two handlers and butons in JSX cpde.
 // 1.5 Add "<button onClick={incrementHandler}>Increment</button>"
 // ~~ DISPATCHING ACTION ~~
+
+// REDUX WITH CLASS-BASED COMPONENTS
+// STEP: 1
+// 1.1 Let's see what it looks like this "Counter" Component if I would build it as a class-based Component. For this I'll add a class named "Counter"
+// 1.2 This class need to extend the react component object: "import { Component } from "react";" like this.
+// 1.3 Extends: "class Counter extends Component {}" we need to add the "constructor(){}" to initialize our state, but here don't have any state => replace "constructor(){}" with "render(){}" method which should return this JSX code.
+// 1.4 Now need to add "increment" and "decrement" handler methods, a "toggleCounterHandler" and get access to our "counter". Let's add this methods.
+// 1.5 Add "this" keyword to functions reffering to these methods, which are part of this case.
+// STEP 2: HOW WE DO get access to REDUX with class based components?
+// 2.1 In class-based components are not usable hooks. Solve - use "connect" imported from "react-redux".
+// 2.2 In "export default Counter()" add "connect()(Counter)". "Connect" is a so-called higher order Component. In this "connect()(Counter)" we execute the "connect" function it then returns a new function and we execute this returned, this new function as well.

@@ -7,8 +7,10 @@ import { counterActions } from "../store/index";
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
-  const show = useSelector((state) => state.showCounter);
+  // const counter = useSelector((state) => state.counter); // For 1 slice
+  const counter = useSelector((state) => state.counter.counter); // For several slice
+  // const show = useSelector((state) => state.showCounter);
+  const show = useSelector((state) => state.counter.showCounter);
 
   const incrementHandler = () => {
     // dispatch({ type: "increment" });
@@ -176,3 +178,10 @@ export default Counter;
 // 1.3 For this method ("increase") we pass our payload data. (for example an object with any property value pairs of our choice) or just a number by wanna increase here. But how you then extract that value? Redux toolkit creates automatically object and any value you pass here: "{type:SOME_UNIQUE_IDENTIFIER, payload}" and any value you pass here. As an argument to this action method you're executing, will be stored in an extra field named "payload" - that default name.
 // GO TO index.js ---> we need change amout to payload.
 // MIGRATION EVERYTHING TO REDUX TOOLKIT
+
+// WORKING WITH MULTIPLE SLICES
+// STEP 3:
+// Counter was broken. For counter I use "counter" as an identifier. hence in the "Counter" Component, when we wanna access the "counter" =>
+// 3.1 "  const counter = useSelector((state) => state.counter.counter);" add additional ".counter" to drill. First ".counter" we make React-REDUX aware of the fact that we wanna dive into this slice in the end, into the state produced by this slicer's reducer and then in that state slice, we simply have a property named counter. (if value => .counter.value)
+// 3.2 "const show = useSelector((state) => state.counter.showCounter);"
+// WORKING WITH MULTIPLE SLICES

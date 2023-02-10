@@ -4,11 +4,11 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 // export const INCREMENT = "increment";
 
-const initialState = { counter: 0, showCounter: true };
+const initialCounterState = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
   name: "counter",
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state) {
       state.counter++;
@@ -22,6 +22,24 @@ const counterSlice = createSlice({
     },
     toggleCounter(state) {
       state.showCounter = !state.showCounter;
+    },
+  },
+});
+
+const initialAuthState = {
+  isAuthenticated: false,
+};
+
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+
+    logout(state) {
+      state.isAuthenticated = false;
     },
   },
 });
@@ -63,18 +81,19 @@ const counterSlice = createSlice({
 // REDUX
 
 // REDUX TOOLKIT for several reducers in "counterSlice"
-// const store = configureStore({
-//   reducer: { counter: counterSlice.reducer },
-// });
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+});
 // REDUX TOOLKIT for several reducers in "counterSlice"
 
 // Our CASE only one REDUCER
-const store = configureStore({
-  reducer: counterSlice.reducer,
-});
+// const store = configureStore({
+//   reducer: counterSlice.reducer,
+// });
 // Our CASE only one REDUCER
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 export default store;
 
 // ~~ CREATE A REDUX STOREFOR REACT ~~
@@ -176,3 +195,23 @@ export default store;
 // STEP 2:
 // 2.1 "state.counter = state.counter + action.payload;" - action.amout change to action.payload, because that is the name off the property, which will hold any extra data you might be dispatching
 // MIGRATION EVERYTHING TO REDUX TOOLKIT
+
+// WORKING WITH MULTIPLE SLICES
+
+// STEP 2:
+// Add to "const initialState = { counter: 0, showCounter: true, isAuthenticated: false };" new argument, and set is to "false" and add a new reducer (login for example) but it no sense. This "counterSlice" focusess on the counter-related state and actions. And we should create a brand new "slice" for authentication state
+// 2.1 Rename "initialState" to "initialCounterState" because we will have one more "initialState". And set the "initialState" property in this "counterSlice" to the value stored in "initialCounterState" (" initialState: initialCounterState,")
+// 2.2 Add a new slice below the other slice. we can call "createSlice" again to create another slice. And this slice also needs an object to be configured.
+// 2.3 Let's configure this "createSlice" with "name", "initialState" (create new variable for that) /// "const initialAuthState = {  isAuthenticated: false,};"
+// 2.4 "initialState: initialAuthState" - add
+// 2.5 Then we need to register our reducers. These reducers methods, which can change this state. With 2 methods: "login" and "logout" both method receive current state as an argument automatically provided by REDUX, and we can then mutate this state, even though we technically shouldn't, but under the hood, our code will be transformed to actually not mutate the original state, so it safe to do that here.
+// 2.6 We can set "state.isAuthenticated=true" in the "login" state. and "false" in "logout".
+// 2.7 store this slice into constant.
+// 2.8 And now we wanna add that to our Redux store, so you still only call "configureStore" once! This does not change. And this "store" only has one root reducer, but this reducer actually does not just take a reducer funtion as an argument but also an object which acts as a map of reducers, where you can then have any key names of your choice, and point at your different reducers. "reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },"
+// This two reducerss will then automatically be merged together into one main reducer which is exposed to this store.
+// 2.9 Now "export const authActions = authSlice.actions;"
+// Let's use it in our different components.
+// Counter was broken. For counter I use "counter" as an identifier. hence in the "Counter" Component, when we wanna access the "counter" =>
+// GP TO Counter.js --- >>>
+
+// WORKING WITH MULTIPLE SLICES

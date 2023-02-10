@@ -1,4 +1,4 @@
-import classes from './UserProfile.module.css';
+import classes from "./UserProfile.module.css";
 
 const UserProfile = () => {
   return (
@@ -9,3 +9,14 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+// WORKING WITH MULTIPLE SLICES
+// HELLO, I'm FROM App.js!!!
+//
+// STEP 2:
+// Make sure if I click the button we set the user to authenticated, if we click the Logout button, I wanna set the user to not authenticated. And our ".store/index.js" we can add a brand new state, a brand new piece of data.
+
+// GO TO .store/index.js file --->>>
+
+// 2.1
+// WORKING WITH MULTIPLE SLICES

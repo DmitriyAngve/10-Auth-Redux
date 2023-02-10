@@ -1,13 +1,12 @@
+// import { legacy_createStore as createStore } from "redux";
 // import { act } from "react-dom/test-utils";
-import { legacy_createStore as createStore } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 // export const INCREMENT = "increment";
 
 const initialState = { counter: 0, showCounter: true };
 
-createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
@@ -26,39 +25,53 @@ createSlice({
   },
 });
 
-const counterReducer = (state = initialState, action) => {
-  if (action.type === "increment") {
-    return {
-      counter: state.counter + 1,
-      showCounter: state.showCounter,
-    };
-  }
+// const counterReducer = (state = initialState, action) => {
+//   if (action.type === "increment") {
+//     return {
+//       counter: state.counter + 1,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === "increase") {
-    return {
-      counter: state.counter + action.amount,
-      showCounter: state.showCounter,
-    };
-  }
+//   if (action.type === "increase") {
+//     return {
+//       counter: state.counter + action.amount,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === "decrement") {
-    return {
-      counter: state.counter - 1,
-      showCounter: state.showCounter,
-    };
-  }
+//   if (action.type === "decrement") {
+//     return {
+//       counter: state.counter - 1,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === "toggle") {
-    return {
-      showCounter: !state.showCounter,
-      counter: state.counter,
-    };
-  }
+//   if (action.type === "toggle") {
+//     return {
+//       showCounter: !state.showCounter,
+//       counter: state.counter,
+//     };
+//   }
 
-  return state;
-};
+//   return state;
+// };
 
-const store = createStore(counterReducer);
+// REDUX
+// const store = createStore(counterReducer);
+// REDUX
+
+// REDUX TOOLKIT for several reducers in "counterSlice"
+// const store = configureStore({
+//   reducer: { counter: counterSlice.reducer },
+// });
+// REDUX TOOLKIT for several reducers in "counterSlice"
+
+// Our CASE only one REDUCER
+const store = configureStore({
+  reducer: counterSlice.reducer,
+});
+// Our CASE only one REDUCER
 
 export default store;
 
@@ -131,3 +144,18 @@ export default store;
 // 2.1 For "increase(){}" we need extra data. This method don't do just receive the "state", they need "action" - add "action" as a parametr and use it un the reducer function in the reducer method: "increase(state, action) {state.counter = state.counter + action.amount;}," like as "ifcheck" below
 // 2.2 for "toggleCounter" do same.
 // ADDING STATE SLICES
+
+// CONNECTING REDUX TOOLKIT STATE
+// STEP 1:
+// 1.1 To use "createSlice" we first of all need to use the return value of calling "createSlice" because we get back our "counterSlice" (it is slice of global state - name is up to you). The slice which is responsible for working with our counter. "const counterSlice = createSlice({..."
+// 1.2 Now we wanna register this with our store. And comment our old "CounterReducer" - we don't need that anymore.
+// 1.3 In "createStore" we could pass our "counterSlice.reducer". With that we get access to the reducers set up in the slice.
+// 1.4 Let's import another function from reduxjs/toolkit - "configureStore" function. This function makes multiple reducers into one reducer.
+// 1.5 Comment "createStore" and replace it to "const store = configureStore(counterSlice.reducer);"
+// 1.6 Into "configureStore" we now pass an object: "". It's a configuration object expected by "configureStore", a configuration object where we then set a reducer property and that's an expected property by "configureStore" !!! reducer - singular and not plural, because still, no matter if we use "createStore" of "configureStore", REDUX WANTS ONE MAIN REDUCER function!!!, which is responsible for the global state.
+// With "configureStore", the value for reducer can be a single reducer, so we can use "counterSlice.reducer" to use the reducer from that "counterSlice", which combines all those reducer methods to find in that slice. We can use that as a global main reducer. - this makes sense because this is the only state slice we have and therefore, the only reducer we have, but if we have multiple state slices in a bigger application then alternatively as a value for thus reducer key, we could also set an object and in that object, and in that objects we can set up any keys of our choice (any propertu names pf my choice), and the values of that properties would then be different reducer functions. So we would create a map of reducers you could say, and this map is then set as a value fore the main reducer, and behinde the scenes "configureStore" will merge all those reducers into ONE BIG REDUCER!!!
+
+// STEP 2:
+// NOW we need to dispatch actions!
+// 2.1
+// CONNECTING REDUX TOOLKIT STATE

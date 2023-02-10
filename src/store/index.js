@@ -1,6 +1,11 @@
 // import { legacy_createStore as createStore } from "redux";
 // import { act } from "react-dom/test-utils";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+
+// import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+
+import counterReducer from "./counter";
+import authReducer from "./auth";
 
 // export const INCREMENT = "increment";
 
@@ -87,13 +92,16 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 // Our CASE only one REDUCER
 
 // REDUX TOOLKIT for several reducers in "counterSlice"
+// const store = configureStore({
+//   reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+// });
 const store = configureStore({
-  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+  reducer: { counter: counterReducer, auth: authReducer },
 });
 // REDUX TOOLKIT for several reducers in "counterSlice"
 
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
+// export const counterActions = counterSlice.actions;
+// export const authActions = authSlice.actions;
 export default store;
 
 // ~~ CREATE A REDUX STOREFOR REACT ~~
@@ -222,5 +230,13 @@ export default store;
 // 1.1 Remove "initialStateCounterState" and "slice" and add in counter.js file
 
 // GO TO counter.js
+
+// CAME FROM auth.js and counter.js
+// STEP 4:
+// 4.1 Remove "createSlice" from import.
+// We focus on creating that main store and merging all the slice reducers together.
+// 4.2 "import counterSlice from "./counter";" or add ".reducer" to "export default counterSlice.reducer" => if we do that, then we need change import to "counterReducer" : " reducer: { counter: counterReducer, auth: authReducer }," do the same for "auth"
+
+// 4.3 "export const counterActions = counterSlice.actions;" - remove to counter.js
 
 // SPLITTING OUR CODE

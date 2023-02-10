@@ -22,7 +22,8 @@ const counterSlice = createSlice({
   },
 });
 
-export default counterSlice;
+export const counterActions = counterSlice.actions;
+export default counterSlice.reducer;
 
 // SPLITTING OUR CODE
 
@@ -30,5 +31,7 @@ export default counterSlice;
 // STEP 2:
 // 2.1 "import { createSlice } from "@reduxjs/toolkit";" And still need to use "Counter" in a defferent folder after => let's export it.
 // 2.2 Do the same for auth.js (create new file)
+
+// STEP 4 (from index.js) (add a ".reducer") => dont export all "counterSlice", just a ".reducer" part.
 
 // SPLITTING OUR CODE

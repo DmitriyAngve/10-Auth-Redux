@@ -17,7 +17,8 @@ const counterSlice = createSlice({
       state.counter--;
     },
     increase(state, action) {
-      state.counter = state.counter + action.amount;
+      // state.counter = state.counter + action.amount;
+      state.counter = state.counter + action.payload;
     },
     toggleCounter(state) {
       state.showCounter = !state.showCounter;
@@ -73,6 +74,7 @@ const store = configureStore({
 });
 // Our CASE only one REDUCER
 
+export const counterActions = counterSlice.actions;
 export default store;
 
 // ~~ CREATE A REDUX STOREFOR REACT ~~
@@ -155,7 +157,22 @@ export default store;
 // 1.6 Into "configureStore" we now pass an object: "". It's a configuration object expected by "configureStore", a configuration object where we then set a reducer property and that's an expected property by "configureStore" !!! reducer - singular and not plural, because still, no matter if we use "createStore" of "configureStore", REDUX WANTS ONE MAIN REDUCER function!!!, which is responsible for the global state.
 // With "configureStore", the value for reducer can be a single reducer, so we can use "counterSlice.reducer" to use the reducer from that "counterSlice", which combines all those reducer methods to find in that slice. We can use that as a global main reducer. - this makes sense because this is the only state slice we have and therefore, the only reducer we have, but if we have multiple state slices in a bigger application then alternatively as a value for thus reducer key, we could also set an object and in that object, and in that objects we can set up any keys of our choice (any propertu names pf my choice), and the values of that properties would then be different reducer functions. So we would create a map of reducers you could say, and this map is then set as a value fore the main reducer, and behinde the scenes "configureStore" will merge all those reducers into ONE BIG REDUCER!!!
 
-// STEP 2:
 // NOW we need to dispatch actions!
-// 2.1
 // CONNECTING REDUX TOOLKIT STATE
+
+// MIGRATION EVERYTHING TO REDUX TOOLKIT
+
+// STEP 1:
+// For dispatching actions "createSlice" has got us covered. It automatically creates unique actions identifiers for our reducers. To get hold of these actions identifiers, we can use our "counterSlice" and access "counterSlice.actions" - that is then an object full of keys, where the key names "increment", "decrement" and so on... from "createSlice" function.
+// Now we can access those keys on this actions object. And with that we don't access the reducer methods to find up there but instead we get methods created automatically by Redux Toolkit, which will called will create action objects for us. For example: method "toggleCounter" of "counterSlice.actions.toggleCounter" will create action object for us. Therefore these methods are called action creators and they will create action objects for us where these objects already have a type property with a unique identifier per action. Automatically created behind the scenes. We don't have to worry about action identifiers. We can tap into this actions key into this actions object on our "createSlice" and  execute these action creator methods which with their name match our reducer methods to dispatch actions, which will they ultimately trigger those defferent reducer methods
+// Don't have to worry  about creating action objects on our own and about coming up with unique identifiers and about avoiding typos.
+// STEP 1:
+// 1.1 Store "export const counterActions = counSlicer.actions" into variable. and export this counter actions!
+// By doing this we can then go to the component where we need the actions in this case to "Counter.js" file
+
+// GO TO "Counter.js" --->>>
+
+// HELLO, I'm FROM COUNTER.js
+// STEP 2:
+// 2.1 "state.counter = state.counter + action.payload;" - action.amout change to action.payload, because that is the name off the property, which will hold any extra data you might be dispatching
+// MIGRATION EVERYTHING TO REDUX TOOLKIT

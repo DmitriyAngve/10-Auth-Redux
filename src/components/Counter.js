@@ -3,25 +3,31 @@ import { useSelector, useDispatch, connect } from "react-redux";
 import classes from "./Counter.module.css";
 // import { INCREMENT } from "../store";
 
+import { counterActions } from "../store/index";
+
 const Counter = () => {
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter);
   const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    // dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
   };
 
   const increaseHandler = () => {
-    dispatch({ type: "increase", amount: 10 });
+    // dispatch({ type: "increase", amount: 10 });
+    dispatch(counterActions.increase(10)); // {type:SOME_UNIQUE_IDENTIFIER, payload}
   };
 
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    // dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
   const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" });
+    // dispatch({ type: "toggle" });
+    dispatch(counterActions.toggleCounter());
   };
 
   return (
@@ -159,8 +165,14 @@ export default Counter;
 // 3.3 Add render to div conditionally: "show &&<div className={classes.value}>{counter}</div>}" IF "show" changes - it start's render a component
 // WORKING WITH MULTIPLE STATE PROPERTIES
 
-// HOW TO WORK WITH REDUX STATE CORRECTLY
-// STEP 1:
-// 1.1
+// MIGRATION EVERYTHING TO REDUX TOOLKIT
+// HELLO, I'm FROM store/index.js
 
-// HOW TO WORK WITH REDUX STATE CORRECTLY
+// STEP 1:
+// 1.1 import from "index.js" "import { counterActions } from "../store/index";".
+// "counterActions" - that's an object which has our reducer names (increment, decrement...) as keys.
+// So now if we want to dispatch an action here all we have to do is we have to access "counterActions". "dispatch(counterActions.increment());" - because "increment" is a method, which when executed creates a full action object with the type set to this automatically created unique action identifier.
+// 1.2 Do this for "decrement" and "toggleCounter", but not for "increase".
+// 1.3 For this method ("increase") we pass our payload data. (for example an object with any property value pairs of our choice) or just a number by wanna increase here. But how you then extract that value? Redux toolkit creates automatically object and any value you pass here: "{type:SOME_UNIQUE_IDENTIFIER, payload}" and any value you pass here. As an argument to this action method you're executing, will be stored in an extra field named "payload" - that default name.
+// GO TO index.js ---> we need change amout to payload.
+// MIGRATION EVERYTHING TO REDUX TOOLKIT

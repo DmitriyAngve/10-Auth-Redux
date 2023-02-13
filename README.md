@@ -18,7 +18,7 @@ In this project, I tried to lay a solid foundation for deep diving into Redux.
 1. Several buttons with different logic: increment increase count by 1, with decrement. Button for increasing count by 10 (unlike of inc and dec buttons this button need action). Button "toggle" for hiding Counter.
 2. Dummy login form and header for logout. Without filling form, without validation, only change state if we click the login and logout.
 
-# npm install @reduxjs/toolkit
-# npm run start
+<h3>npm install @reduxjs/toolkit</h3>
+<h3>npm run start</h3>
 
 <h2 align="center">Thanks for reading this entire post.<h2>

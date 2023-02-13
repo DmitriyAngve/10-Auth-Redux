@@ -21,4 +21,4 @@ In this project, I tried to lay a solid foundation for deep diving into Redux.
 # npm install @reduxjs/toolkit
 # npm run start
 
-Thanks for reading this entire post.
+<h2 align="center">Thanks for reading this entire post.<h2>

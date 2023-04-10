@@ -5,7 +5,7 @@ My first project using Redux and Redux Toolkit.
 Nothing special, just self-practice and demonstration of using Redux-Redux Toolkit in React ecosystem.
 
 In this simple App I demostrate how easy it is to manage state, reducers and actions with Redux Toolkit instead of having to set up everything on your own.
-I was using core Redux concepts (using "configureStore" for creating of Central Data Store and argument as reducers, mergeing reducers and other core concepts...)
+I was using core Redux concepts (using "configureStore" for creating of Central Data Store and argument as reducers, merging reducers and other core concepts...)
 Also i have learned how to use Redux manage data, e.c.: using "useSelector" in components to read data from Redux managed state.
 And how to use "useDispatch" to get access to dispatch function which I use to dispatch actions which then leads to Redux state being changed.
 In addition I learn how to pass extra data to actions.

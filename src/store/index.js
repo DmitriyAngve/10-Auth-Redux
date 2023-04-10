@@ -34,7 +34,6 @@ import authReducer from "./auth";
 // const initialAuthState = {
 //   isAuthenticated: false,
 // };
-
 // const authSlice = createSlice({
 //   name: "authentication",
 //   initialState: initialAuthState,

@@ -1,4 +1,4 @@
-# Redux-first-project
+# Redux-first-project / Auth-Redux and Counter.
 
 My first project using Redux and Redux Toolkit.
 
